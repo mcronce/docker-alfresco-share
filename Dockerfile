@@ -41,4 +41,6 @@ COPY assets/server.xml conf/server.xml
 ENV JAVA_OPTS " -XX:-DisableExplicitGC -Djava.security.egd=file:/dev/./urandom -Djava.awt.headless=true -Dfile.encoding=UTF-8 "
 
 ADD assets/entrypoint.sh /opt/
-CMD ["/opt/entrypoint.sh" "run"]
+ENTRYPOINT ["/opt/entrypoint.sh"]
+CMD ["run"]
+
