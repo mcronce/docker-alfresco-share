@@ -10,7 +10,6 @@ RUN \
 	( \
 		set -ex; \
 		echo "NEXUS=\"${NEXUS}\""; \
-		echo "MMT_VERSION=\"$(/app/find_latest_version "${NEXUS}/org/alfresco/alfresco-mmt")\""; \
 		echo "ALF_VERSION=\"$(/app/find_latest_version "${NEXUS}/org/alfresco/share")\""; \
 	) > /app/latest_versions.env
 
@@ -19,13 +18,6 @@ MAINTAINER Jeremie Lesage <jeremie.lesage@gmail.com>
 
 WORKDIR /usr/local/tomcat/
 COPY --from=version_discoverer /app/latest_versions.env /root/
-
-## JAR - ALFRESCO MMT
-RUN \
-	set -ex && \
-	. /root/latest_versions.env && \
-	curl -L "${NEXUS}/org/alfresco/alfresco-mmt/${MMT_VERSION}/alfresco-mmt-${MMT_VERSION}.jar" -o /root/alfresco-mmt.jar && \
-	mkdir -pv /root/amp
 
 ## SHARE.WAR
 RUN \
